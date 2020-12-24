@@ -25,6 +25,9 @@ USA_NAMES = (
     'America',
 )
 
+US_STATE_DB_URL = "https://github.com/Sheshank-s/litecoder/releases/download/v1.0/us-states.marisa.zip"
+US_CITY_DB_URL = "https://github.com/Sheshank-s/litecoder/releases/download/v1.0/us-cities.marisa.zip"
+
 
 def keyify(text):
     """Convert text -> normalized index key.
@@ -194,6 +197,8 @@ class Index:
 class USCityIndex(Index):
 
     def load(self, path=US_CITY_PATH, mmap=False):
+        if not os.path.isfile(US_CITY_PATH):
+            download(US_CITY_DB_URL, "data/us-cities.marisa", kind="zip", progressbar=True)
         return super().load(path, mmap)
 
     def __init__(self, bare_name_blocklist=None):
@@ -233,6 +238,8 @@ class USCityIndex(Index):
 class USStateIndex(Index):
 
     def load(self, path=US_STATE_PATH, mmap=False):
+        if not os.path.isfile(US_STATE_PATH):
+            download(US_STATE_DB_URL, "data/us-cities.marisa", kind="zip", progressbar=True)
         return super().load(path, mmap)
 
     def build(self):
